@@ -238,7 +238,7 @@ namespace pxtblockly {
 
             this.redraw();
             this.drawBackground();
-
+            console.log("Resetting!");
             this.bounds = undefined;
         }
 

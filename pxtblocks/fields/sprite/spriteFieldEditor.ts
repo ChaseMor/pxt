@@ -122,6 +122,8 @@ namespace pxtblockly {
                 goog.style.setStyle(contentDiv, "max-height", null);
                 (goog.dom.classlist as any).remove(contentDiv.parentElement, "sprite-editor-dropdown");
                 this.editor.removeKeyListeners();
+            }, undefined, () => {
+                this.editor.layout();
             });
 
             this.editor.addKeyListeners();
