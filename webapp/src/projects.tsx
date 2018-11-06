@@ -853,19 +853,21 @@ export class ScreenshotDialog extends data.Component<ISettingsProps, ScreenshotD
 
         const actions: sui.ModalButton[] = [{
             label: lf("Done"),
-            //onclick: this.save,
+            onclick: this.hide,
             icon: 'check',
             className: 'approve positive'
         }]
 
         return (
-            <sui.Modal isOpen={visible} className="showscreenshot" size="tiny"
-                onClose={this.hide} dimmer={true} buttons={actions}
+            <sui.Modal isOpen={visible} className="showscreenshot" size="small" buttons= {actions}
+                onClose={this.hide} dimmer={true}
                 closeIcon={true} header={lf("Screenshot")}
                 closeOnDimmerClick closeOnDocumentClick closeOnEscape
                 modalDidOpen={this.modalDidOpen}
             >
-                <img src={ imageSource } />
+                <div className="ui cards centered">
+                    <img src={ imageSource } height="240px" width="320px"/>
+                </div>
             </sui.Modal>
         )
     }
