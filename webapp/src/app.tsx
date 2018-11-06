@@ -101,6 +101,7 @@ export class ProjectView
     importDialog: projects.ImportDialog;
     exitAndSaveDialog: projects.ExitAndSaveDialog;
     chooseHwDialog: projects.ChooseHwDialog;
+    screenshotDialog: projects.ScreenshotDialog;
     prevEditorId: string;
     screenshotHandler: (img: string) => void;
 
@@ -1713,6 +1714,10 @@ export class ProjectView
         }
     }
 
+    showScreenshotDialog() {
+        this.screenshotDialog.show();
+    }
+
     startSimulator(debug?: boolean, clickTrigger?: boolean) {
         pxt.tickEvent('simulator.start');
         if (!this.shouldStartSimulator()) {
@@ -2390,6 +2395,10 @@ export class ProjectView
         this.exitAndSaveDialog = c;
     }
 
+    private handleScreenshotDialogRef = (c: projects.ScreenshotDialog) => {
+        this.screenshotDialog = c;
+    }
+
     private handleShareEditorRef = (c: share.ShareEditor) => {
         this.shareEditor = c;
     }
@@ -2522,6 +2531,7 @@ export class ProjectView
                 {inHome ? <projects.ImportDialog parent={this} ref={this.handleImportDialogRef} /> : undefined}
                 {sandbox ? undefined : <projects.ExitAndSaveDialog parent={this} ref={this.handleExitAndSaveDialogRef} />}
                 <projects.ChooseHwDialog parent={this} ref={this.handleChooseHwDialogRef} />
+                <projects.ScreenshotDialog parent={this} ref={this.handleScreenshotDialogRef} />
                 {sandbox || !sharingEnabled ? undefined : <share.ShareEditor parent={this} ref={this.handleShareEditorRef} />}
                 {selectLanguage ? <lang.LanguagePicker parent={this} ref={this.handleLanguagePickerRef} /> : undefined}
                 {sandbox ? <container.SandboxFooter parent={this} /> : undefined}

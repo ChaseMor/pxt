@@ -23,6 +23,7 @@ export class SimulatorToolbar extends data.Component<SimulatorProps, {}> {
         this.startStopSimulator = this.startStopSimulator.bind(this);
         this.toggleSimulatorFullscreen = this.toggleSimulatorFullscreen.bind(this);
         this.toggleSimulatorCollapse = this.toggleSimulatorCollapse.bind(this);
+        this.screenshot = this.screenshot.bind(this);
     }
 
     openInstructions() {
@@ -65,6 +66,10 @@ export class SimulatorToolbar extends data.Component<SimulatorProps, {}> {
         this.props.parent.toggleSimulatorCollapse();
     }
 
+    screenshot() {
+        this.props.parent.showScreenshotDialog();
+    }
+
     renderCore() {
         const parentState = this.props.parent.state;
         if (!parentState.currFile) return <div />
@@ -98,12 +103,16 @@ export class SimulatorToolbar extends data.Component<SimulatorProps, {}> {
         const muteTooltip = isMuted ? lf("Unmute audio") : lf("Mute audio");
         const collapseTooltip = lf("Hide the simulator");
 
+        const screenshot = true;
+        const screenshotTooltip = lf("Screenshot the simulator");
+
         return <aside className="ui item grid centered portrait hide simtoolbar" role="complementary" aria-label={lf("Simulator toolbar")}>
             <div className={`ui icon tiny buttons ${isFullscreen ? 'massive' : ''}`} style={{ padding: "0" }}>
                 {make ? <sui.Button disabled={debugging} icon='configure' className="secondary" title={makeTooltip} onClick={this.openInstructions} /> : undefined}
                 {run ? <sui.Button disabled={debugging} key='runbtn' className={`play-button ${isRunning ? "stop" : "play"}`} icon={isRunning ? "stop" : "play green"} title={runTooltip} onClick={this.startStopSimulator} /> : undefined}
                 {restart ? <sui.Button disabled={debugging} key='restartbtn' className={`restart-button`} icon="refresh" title={restartTooltip} onClick={this.restartSimulator} /> : undefined}
                 {trace ? <sui.Button key='trace' className={`trace-button ${tracing ? 'orange' : ''}`} icon="xicon turtle" title={traceTooltip} onClick={this.toggleTrace} /> : undefined}
+                {screenshot ? <sui.Button key='screenshot' className={`screenshot-button ${tracing ? 'orange' : ''}`} icon="camera" title={screenshotTooltip} onClick={this.screenshot} /> : undefined}
             </div>
             <div className={`ui icon tiny buttons ${isFullscreen ? 'massive' : ''}`} style={{ padding: "0" }}>
                 {audio ? <sui.Button key='mutebtn' className={`mute-button ${isMuted ? 'red' : ''}`} icon={`${isMuted ? 'volume off' : 'volume up'}`} title={muteTooltip} onClick={this.toggleMute} /> : undefined}

@@ -796,6 +796,67 @@ export class ExitAndSaveDialog extends data.Component<ISettingsProps, ExitAndSav
 }
 
 
+export interface ScreenshotDialogState {
+    visible?: boolean;
+    imageSource?: string;
+}
+
+export class ScreenshotDialog extends data.Component<ISettingsProps, ScreenshotDialogState> {
+
+    constructor(props: ISettingsProps) {
+        super(props);
+        this.state = {
+            visible: false,
+            imageSource: ""
+        }
+
+        this.hide = this.hide.bind(this);
+        this.cancel = this.cancel.bind(this);
+        this.modalDidOpen = this.modalDidOpen.bind(this);
+    }
+
+    hide() {
+        this.setState({ visible: false });
+    }
+
+    show() {
+        this.setState({ visible: true });
+    }
+
+    modalDidOpen(ref: HTMLElement) {        
+        const simDiv = document.getElementById('simulators');
+        const iframe = simDiv.getElementsByTagName("iframe")[0];
+        const canvas = iframe.contentDocument.getElementById("paint-surface") as HTMLCanvasElement;
+        this.setState({ imageSource: canvas.toDataURL("image/png") });
+    }
+
+    cancel() {
+        this.hide();
+    }
+
+    renderCore() {
+        const { visible, imageSource } = this.state;
+
+        const actions: sui.ModalButton[] = [{
+            label: lf("Done"),
+            //onclick: this.save,
+            icon: 'check',
+            className: 'approve positive'
+        }]
+
+        return (
+            <sui.Modal isOpen={visible} className="showscreenshot" size="tiny"
+                onClose={this.hide} dimmer={true} buttons={actions}
+                closeIcon={true} header={lf("Screenshot")}
+                closeOnDimmerClick closeOnDocumentClick closeOnEscape
+                modalDidOpen={this.modalDidOpen}
+            >
+                <img src={ imageSource } />
+            </sui.Modal>
+        )
+    }
+}
+
 export interface ChooseHwDialogState {
     visible?: boolean;
 }
