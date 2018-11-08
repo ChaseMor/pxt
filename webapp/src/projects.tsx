@@ -866,7 +866,9 @@ export class ScreenshotDialog extends data.Component<ISettingsProps, ScreenshotD
                 modalDidOpen={this.modalDidOpen}
             >
                 <div className="ui cards centered">
-                    <img src={ imageSource } height="240px" width="320px"/>
+                    <img src={ imageSource } height="240px" width="320px" style={
+                        {imageRendering: 'pixelated'}
+                    }/>
                 </div>
             </sui.Modal>
         )
