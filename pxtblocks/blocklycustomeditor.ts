@@ -37,6 +37,7 @@ namespace pxt.blocks {
         registerFieldEditor('toggleupdown', pxtblockly.FieldToggleUpDown);
         registerFieldEditor('toggledownup', pxtblockly.FieldToggleDownUp);
         registerFieldEditor('togglehighlow', pxtblockly.FieldToggleHighLow);
+        registerFieldEditor('newcolornumber', pxtblockly.FieldNewColorNumber);
         registerFieldEditor('colornumber', pxtblockly.FieldColorNumber);
         registerFieldEditor('images', pxtblockly.FieldImages);
         registerFieldEditor('sprite', pxtblockly.FieldSpriteEditor);
